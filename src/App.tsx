@@ -2,6 +2,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Currency } from './Currency';
 import './index.scss';
+import Box from '@material-ui/core/Box/Box';
+import { CircularProgress } from '@material-ui/core';
 
 export type ResponseDataType = {
   base: string;
@@ -22,6 +24,7 @@ function App() {
   const [changeRate, setChangeRate] = useState<number>();
   const [amount, setAmount] = useState<number | any>(1);
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   let toAmount, fromAmount;
   if (amountInFromCurrency) {
@@ -33,6 +36,7 @@ function App() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get('https://openexchangerates.org/api/latest.json?app_id=02a319ef9b3d4607aef242f676e6752e')
       .then(
@@ -43,6 +47,7 @@ function App() {
           setOneCurrency(res.data.base);
           setTwoCurrency(firstCurrency);
           setChangeRate(res.data.rates[firstCurrency]);
+          setIsLoading(false);
         },
       );
   }, []);
@@ -71,6 +76,7 @@ function App() {
       <div className="wrapper">
         <div className="content">
           <h1>Курс валют</h1>
+          {isLoading && <CircularProgress />}
           <Currency
             //@ts-ignore
             options={options}
@@ -79,7 +85,7 @@ function App() {
             onChangeInput={handleOneChange}
             amount={fromAmount}
           />
-         <hr/>
+          <hr />
           <Currency
             //@ts-ignore
             options={options}
@@ -91,6 +97,15 @@ function App() {
         </div>
       </div>
     </>
+  );
+}
+
+// Компонент Loader
+export function CircularIndeterminate() {
+  return (
+    <Box className="circular" sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
   );
 }
 
