@@ -23,11 +23,11 @@ function App() {
   const [twoCurrency, setTwoCurrency] = useState<string>();
   const [changeRate, setChangeRate] = useState<number>();
   const [amount, setAmount] = useState<number | any>(1);
-  const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
+  const [amountCurrency, setAmountCurrency] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
   let toAmount, fromAmount;
-  if (amountInFromCurrency) {
+  if (amountCurrency) {
     fromAmount = amount;
     toAmount = changeRate && amount * changeRate;
   } else {
@@ -70,12 +70,12 @@ function App() {
 
   function handleOneChange(e: ChangeEvent<HTMLInputElement>) {
     setAmount(e.target.value);
-    setAmountInFromCurrency(true);
+    setAmountCurrency(true);
   }
 
   function handleTwoChange(e: ChangeEvent<HTMLInputElement>) {
     setAmount(e.target.value);
-    setAmountInFromCurrency(false);
+    setAmountCurrency(false);
   }
 
   return (
