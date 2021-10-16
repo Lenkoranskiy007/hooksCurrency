@@ -57,7 +57,14 @@ function App() {
       axios(
         `https://openexchangerates.org/api/latest.json?app_id=02a319ef9b3d4607aef242f676e6752e&base=${oneCurrency}&symbols=${twoCurrency}`,
       ) //@ts-ignore
-        .then((res) => setChangeRate(res.data.rates[twoCurrency]));
+        .then((res) => setChangeRate(res.data.rates[twoCurrency]))
+        .catch((res) => {
+          if (!res.ok) {
+            alert(
+              'Changing the API `base` currency is available for Developer, Enterprise and Unlimited plan clients. Please upgrade, or contact support@openexchangerates.org with any questions.',
+            );
+          }
+        });
     }
   }, [oneCurrency, twoCurrency]);
 
