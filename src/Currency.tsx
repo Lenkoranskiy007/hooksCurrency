@@ -13,7 +13,7 @@ export const Currency = (props: CurrencyType) => {
   return (
     <div>
       <input type="number" className="input" value={props.amount} onChange={props.onChangeInput} />
-      <select value={props.selectedCurrency} onChange={props.onChangeCurrency}>
+      <select className="select" value={props.selectedCurrency} onChange={props.onChangeCurrency}>
         {props.options.map((option, index) => (
           <option key={index} value={option}>
             {option}

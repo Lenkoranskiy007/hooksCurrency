@@ -51,8 +51,7 @@ function App() {
     if (oneCurrency != null && twoCurrency != null) {
       axios(
         `https://openexchangerates.org/api/latest.json?app_id=02a319ef9b3d4607aef242f676e6752e&base=${oneCurrency}&symbols=${twoCurrency}`,
-      )
-        //@ts-ignore
+      ) //@ts-ignore
         .then((res) => setChangeRate(res.data.rates[twoCurrency]));
     }
   }, [oneCurrency, twoCurrency]);
@@ -71,7 +70,7 @@ function App() {
     <>
       <div className="wrapper">
         <div className="content">
-          <h1>Convert</h1>
+          <h1>Курс валют</h1>
           <Currency
             //@ts-ignore
             options={options}
@@ -80,7 +79,7 @@ function App() {
             onChangeInput={handleOneChange}
             amount={fromAmount}
           />
-          <div className="equals">=</div>
+         <hr/>
           <Currency
             //@ts-ignore
             options={options}
